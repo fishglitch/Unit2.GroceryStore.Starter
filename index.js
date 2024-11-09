@@ -25,7 +25,7 @@ function logNames(items) {
  * @returns {string[]} an array of item names in all uppercase
  */
 function getUppercaseNames(items) {
-  // TODO: use `map` which is a new array
+  // TODO: use `map` which is a new array!
   // console.log(items);
   // with .map(), the arrow function has a block body due to curly braces {}..
   // When you provide a block body, you must explicitly use a return statement to return a value.
