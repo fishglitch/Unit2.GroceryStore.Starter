@@ -1,161 +1,152 @@
-// === DO NOT EDIT THIS REGION ===
-// Read the comments to understand how the program is structured.
+/**
+ * @typedef Item
+ * @property {number} id - this item's ID
+ * @property {string} name - name of this item
+ * @property {number} price - price of this item
+ * @property {string} category - the food group this item belongs to
+ * @property {number} quantity - number of this item in inventory
+ */
 
-// Prompt the user for a list of integers separated by commas.
-const userInputString = prompt(
-  "Please enter some integers separated by commas.",
-  "1,2,3,4,5"
+// ------------------ Complete the functions written below ------------------------------ //
+
+/**
+ * Prints out the name of each item in the given array.
+ * @param {Item[]} items - array of items
+ */
+function logNames(items) {
+  // TODO: use `forEach`
+  items.forEach((item) => {
+    console.log(item.name);
+  });
+}
+
+/**
+ * @param {Item[]} items - array of items
+ * @returns {string[]} an array of item names in all uppercase
+ */
+function getUppercaseNames(items) {
+  // TODO: use `map` which is a new array
+  // console.log(items);
+  // with .map(), the arrow function has a block body due to curly braces {}.
+  // When you provide a block body, you must explicitly use a return statement to return a value.
+  // use block bodies to perform multiple statements inside the function (.map and .toUpperCase)
+  // use curly braces {} to define the body of the function, then explicitly use return keyword to return a value.
+  const mappedArray = items.map((item) => {
+    return item.name.toUpperCase();
+  });
+  console.log(mappedArray);
+}
+
+/**
+ * @param {Item[]} items - array of items
+ * @param {number} id - id of the item to find
+ * @returns {Item} - the item in `items` with the given `id`
+ */
+function getItemById(items, id) {
+  // TODO: use `find`
+  // we have to check that the id matches, use strict equality operator to return boolean BUT WHY??
+  // retain return keyword here, it returns the id value.
+  const foundItem = items.find((item) => {
+    return item.id === id;
+  });
+  return foundItem;
+}
+
+/**
+ * @param {Item[]} items - array of items
+ * @param {string} name - name of the item to find
+ * @returns {number} the price of the item named `name`
+ */
+function getItemPriceByName(items, name) {
+  // TODO: use a loop!
+  // there is no rturn
+  const filteredArray = items.filter((item) => item.name === name);
+  return filteredArray[0].price;
+}
+
+// for (let i = 0; i < items.length; i++) {
+//   // defined const inside for loop to retrieve a food item in the array
+//   // const was defined to retrieve food item values using keys .name, .price
+//   // if statement
+//   const foodItem = items[i];
+//   if (foodItem.name === name) {
+//     return foodItem.price;
+//   }
+// }
+
+/**
+ * @param {Item[]} items - array of items
+ * @param {string} category
+ * @returns {Item[]} array of items that belong to the given `category`
+ */
+function getItemsByCategory(items, category) {
+  // TODO: use `filter`
+  // we defined a variable filterCategory to equal the list of items in the Inventory to be filtered
+  // inside .filter method is the function to see if the item category is of the same type
+  const filterCategory = items.filter((item) => item.category === category);
+  filterCategory.forEach((item) => console.log(item.name));
+}
+/**
+ * @param {Item[]} items - array of items
+ * @returns {number} the total quantity of all items
+ */
+function countItems(items) {
+  // TODO: use `reduce`
+  const initialValue = 0
+  const reducedArray = items.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, initialValue);
+  console.log(reducedArray);
+  // accumulator and currentValue are general reference point 
+  // return items.reduce ((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
+}
+
+/**
+ * @param {Item[]} items - array of items
+ * @returns {number} the cost of all given items
+ */
+function calculateTotalPrice(items) {
+  // TODO: use `reduce`
+  // based on the qty multiplied by the total price
+  // is this good syntax or do we need to define const for clear explanation
+  // if you learn how to use return, you will see that other array methods don't do return (like .map).
+  // it is good practice to define const
+  return items.reduce ((accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity, 0);
+}
+
+// --------------------- DO NOT CHANGE THE CODE BELOW ------------------------ //
+
+/** @type {Item[]} */
+const INVENTORY = [
+  { id: 1, name: "apple", price: 1.75, category: "fruit", quantity: 100 },
+  { id: 2, name: "banana", price: 0.25, category: "fruit", quantity: 137 },
+  { id: 3, name: "orange", price: 1.0, category: "fruit", quantity: 10 },
+  { id: 4, name: "broccoli", price: 3.0, category: "vegetable", quantity: 67 },
+  { id: 6, name: "milk", price: 5.75, category: "dairy", quantity: 90 },
+  { id: 7, name: "cheddar", price: 4.0, category: "dairy", quantity: 63 },
+  { id: 8, name: "sourdough", price: 5.5, category: "grains", quantity: 81 },
+];
+
+console.log("Welcome! We carry the following items:");
+logNames(INVENTORY);
+
+console.log("Here are the names again in all uppercase:");
+console.log(getUppercaseNames(INVENTORY));
+
+console.log(`In total, we have ${countItems(INVENTORY)} items in stock.`);
+
+const totalCost = calculateTotalPrice(INVENTORY);
+console.log(
+  `It would cost $${totalCost?.toFixed(2)} to purchase everything in stock.`
 );
 
-// Split the string of numbers into an array of strings.
-const stringArray = userInputString.split(",");
+const itemId = prompt("Enter the ID of an item:", "1");
+console.log(`The item with id #${itemId} is:`);
+console.log(getItemById(INVENTORY, +itemId));
 
-// Convert the array of strings into an array of numbers.
-const numbers = [];
-for (let i = 0; i < stringArray.length; i++) {
-  const str = stringArray[i];
-  const number = parseInt(str);
-  numbers.push(number);
-}
+const itemName = prompt("Enter the name of an item:", "apple");
+console.log(
+  `The price of ${itemName} is ${getItemPriceByName(INVENTORY, itemName)}.`
+);
 
-// Peform some calculations on the numbers.
-console.log(numbers);
-console.log(`You have given ${getLength(numbers)} numbers.`);
-console.log(`The sum of your numbers is ${getSum(numbers)}.`);
-console.log(`The mean of your numbers is ${getMean(numbers)}.`);
-console.log(`The smallest of your numbers is ${getMin(numbers)}.`);
-console.log(`The largest of your numbers is ${getMax(numbers)}.`);
-console.log(`The range of your numbers is ${getRange(numbers)}.`);
-console.log(`The even numbers you gave are ${getEvens(numbers)}.`);
-console.log(`The odd numbers you gave are ${getOdds(numbers)}.`);
-
-// === EDIT THE CODE BELOW ===
-// Complete the functions below to make the program work!
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the length of the array
- */
-function getLength(numbers) {
-  // TODO
-  return numbers.length;
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the sum of the numbers
- */
-function getSum(numbers) {
-  // TODO
-
-  let sum = 0;
-  for (let index = 0; index < numbers.length; index++) {
-    const element = numbers[index];
-    // console.log(element)
-    sum += element;
-
-    // console.log(sum)
-  }
-  console.log(sum);
-  return sum;
-}
-
-// 1+2= 3
-// 3+3= 6
-// 6+4= 10
-// 10+5= 15
-// sum = 15
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the mean of the numbers
- */
-function getMean(numbers) {
-  // TODO
-  // get the sum, divide the by length of numbers. we use a for loop
-  // we need to return the SUM in order to
-  // we don't need to re-define the sum.
-
-  let sum = 0;
-  //let mean = sum / numbers.length;
-  for (let index = 0; index < numbers.length; index++) {
-    const element = numbers[index];
-    sum += element;
-  }
-
-  let mean = sum / numbers.length
-  
-  // console.log(mean);
-  return mean;
-}
-
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the smallest of the numbers
- */
-function getMin(numbers) {
-  // TODO
-  // sort the array from smallest to largest value
-  // let min = 0 
-  //return the smallest value (call back function)  
-  //if (array === 0) return null;
-  let min = numbers[0];
-  for (let index = 0; index < numbers.length; index++) {
-    if (numbers[index] < min)
-    { min = numbers[index];}
-     
-    }
-    
-    return min;
-}
-  
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the largest of the numbers
- */
-function getMax(numbers) {
-  // TODO
-  //review why does index has to start at 1
-  // if we had index = 0, it would create an infinite loop
-  let max = numbers[0];
-  for (let index = 1; index < numbers.length; index++){
-    if (numbers[index] > max)
-    { max = numbers[index];}
-     
-    }
-    
-    return max;
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number} the range of the numbers (max - min)
- */
-function getRange(numbers) {
-  // TODO
-  // retrieve getMax and getMin defined by range
-  range = getMax(numbers) - getMin(numbers)
-
-return range; 
-}
-
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number[]} the even numbers in the array
- */
-function getEvens(numbers) {
-getEvens = numbers.filter(num => num % 2 === 0);
-return getEvens;
-}
-   
-  
-/**
- * @param {number[]} numbers an array of integers
- * @returns {number[]} the odd numbers in the array
- */
-function getOdds(numbers) {
-  // TODO
-  getOdds = numbers.filter(num => num % 2 !== 0);
-  return getOdds;
-}
+const category = prompt("Enter a category you would like to see:", "fruit");
+console.log(`The items in the ${category} category are:`);
+console.log(getItemsByCategory(INVENTORY, category));
