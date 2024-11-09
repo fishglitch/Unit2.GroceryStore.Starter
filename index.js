@@ -35,6 +35,7 @@ function getUppercaseNames(items) {
     return item.name.toUpperCase();
   });
   console.log(mappedArray);
+  return mappedArray;
 }
 
 /**
@@ -59,7 +60,6 @@ function getItemById(items, id) {
  */
 function getItemPriceByName(items, name) {
   // TODO: use a loop!
-  // there is no rturn
   const filteredArray = items.filter((item) => item.name === name);
   return filteredArray[0].price;
 }
@@ -85,6 +85,7 @@ function getItemsByCategory(items, category) {
   // inside .filter method is the function to see if the item category is of the same type
   const filterCategory = items.filter((item) => item.category === category);
   filterCategory.forEach((item) => console.log(item.name));
+  return filterCategory;
 }
 /**
  * @param {Item[]} items - array of items
@@ -93,8 +94,10 @@ function getItemsByCategory(items, category) {
 function countItems(items) {
   // TODO: use `reduce`
   const initialValue = 0
-  const reducedArray = items.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, initialValue);
+  const reducedArray = items.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.quantity;}, initialValue);
   console.log(reducedArray);
+  return reducedArray;
   // accumulator and currentValue are general reference point 
   // return items.reduce ((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
 }
