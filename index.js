@@ -15,7 +15,7 @@
  */
 function logNames(items) {
   // TODO: use `forEach`
-  items.forEach((item) => {
+  items.slice(3,7).forEach((item) => {
     console.log(item.name);
   });
 }
