@@ -27,7 +27,7 @@ function logNames(items) {
 function getUppercaseNames(items) {
   // TODO: use `map` which is a new array
   // console.log(items);
-  // with .map(), the arrow function has a block body due to curly braces {}.
+  // with .map(), the arrow function has a block body due to curly braces {}..
   // When you provide a block body, you must explicitly use a return statement to return a value.
   // use block bodies to perform multiple statements inside the function (.map and .toUpperCase)
   // use curly braces {} to define the body of the function, then explicitly use return keyword to return a value.
